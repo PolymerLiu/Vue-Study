@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue实例</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <div @click="handleClick">
+            {{message}}
+        </div>
+        <item></item>
+    </div>
+    <script>
+        //创建一个组件也是一个Vue的实例
+        Vue.component('item',{
+            template:'<div>helrld</div>'
+        })
+        //vm.$data   vm.$el  带有$符号的都是vm的属性或者是方法
+        var vm = new Vue({
+            el:'#root',
+            data:{
+                message:'hello'
+            },
+            methods:{
+                handleClick:function(){
+
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算属性，方法和监听器</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">{{fullName}} {{age}}</div>
+    <script>
+        var vm = new Vue({
+            el:'#root',
+            data:{
+                firstName:'jeffrey',
+                lastName:'liu',
+                // fullName:'jeffrey liu',
+                age:25
+            },
+            //计算属性   将模板中的逻辑放到computed中完成
+            //当其依赖发生改变的时候，才会重新计算一次，否则将用原来计算好的值
+            computed:{
+                fullName:function(){
+                    console.log('==========','计算了一次');
+                    return this.firstName+' '+this.lastName
+                }
+            }
+
+            // watch:{
+            //     firstName:function(){
+            //         console.log('==========','first计算');
+            //         this.fullName = this.lastName + this.firstName
+            //     },
+            //     lastName:function(){
+            //         console.log('==========','last计算');
+            //         this.fullName = this.lastName + this.firstName
+            //     }
+            // },
+
+            //方法
+            //页面只要重新渲染，方法就会重新执行一次
+            // methods:{
+            //     fullName:function(){
+            //         console.log('==========','计算了一次');
+            //         return this.firstName+' '+this.lastName
+            //     }
+            // },
+        })
+    </script>
+</body>
+</html>

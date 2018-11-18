@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue实例生命周期函数</title>
+    <script src="./vue.js"></script>
+    <style>
+        .img{
+            width: 800px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <img src="./lifecycle.png" alt="" class="img" srcset="">
+    <script>
+        //生命周期函数就是vue实例在某一个时间点会自动执行的函数
+        var vm = new Vue({
+            el:'#root',
+            data:{
+                test:'abc'
+            },
+            template:'<div>{{test}}</div>',
+            //实例创建之前
+            beforeCreate:function(){
+                console.log('==========','beforeCreate');
+            },
+            //实例创建之后
+            created:function(){
+                console.log('==========','created');
+            },
+
+
+
+            //实例被挂载到页面之前
+            beforeMount:function(){
+                console.log('==========',this.$el);
+                console.log('==========','beforeMount');
+            },
+            //实例挂载到页面之后
+            mounted:function(){
+                console.log('==========',this.$el);
+                console.log('==========','mounted');
+            },
+
+
+
+
+            //实例销毁之前
+            beforeDestroy:function(){
+                console.log('==========','beforeDestroy');
+            },
+            //实例销毁之后
+            destroyed:function(){
+                console.log('==========','destroyed');
+            },
+
+
+
+            //实例销毁之后
+            beforeUpdate:function(){
+                console.log('==========','beforeUpdate');
+            },
+            //实例销毁之后
+            updated:function(){
+                console.log('==========','updated');
+            },
+
+            
+        })
+    </script>
+</body>
+</html>
