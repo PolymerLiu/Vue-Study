@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue中的样式绑定</title>
+    <script src="./vue.js"></script>
+    <style>
+        .activated {
+            color: red
+        }
+        .fonth1{
+            font-size: 36px
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <!-- class的对象绑定 -->
+        <!-- <div @click="handleClick" :class="{activated:isActivate}">
+            hello world
+        </div> -->
+        <div @click="handleClick" :class="[activated,activatedOne]">
+            hello world
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                // isActivate: false,
+                activated: '',
+                activatedOne: 'fonth1',
+            },
+            methods: {
+                handleClick: function () {
+                    // this.isActivate = !this.isActivate
+                    this.activated = this.activated ==='activated'?'':'activated'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
