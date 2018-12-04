@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 使用is解决H5标签BUG
+子组件里边定义data，data必须是一个函数
+ref的使用 -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+            <counter ref= "one" @change="handleChange"></counter> 
+            <counter ref= "two" @change="handleChange"></counter> 
+            <div>{{counter}}</div>
+    </div>
+    <script>
+
+        Vue.component('counter',{
+            template: '<div @click=handleClick>{{number}}</div>',
+            data: function () {
+                return {
+                    number: 0
+                }
+            },
+            methods:{
+                handleClick:function () {
+                this.number++
+                this.$emit('change')
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                counter:0
+
+            },
+            methods: {
+                handleChange:function () {
+                this.counter = this.$refs.one.number+this.$refs.two.number
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>
