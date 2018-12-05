@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非父子组件间传值(Bus/总线/发布订阅模式/观察者模式)</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <child content="jeffrey"></child>
+        <child content="liu"></child>
+        <!-- <child1 content="liu1111111"></child1> -->
+    </div>
+    <script>
+        //new一个Vue的实例，将其赋值给Vue.prototype.bus
+        //之后通过Vue创建的实例/组件都会带有bus的属性
+
+        //Vue这个类上挂了一个bus属性，并且他们都指向同一个实例
+        //此处的new Vue()只是起一个承载的作用,,new出来的这个实例拥有vue的各种属性，方法包括,$on(),$emit()   
+        Vue.prototype.bus = new Vue()
+
+        Vue.component('child', {
+            data: function () {
+                return {
+                    selfContent: this.content
+                }
+            },
+            props: ['content'],
+            template: '<div @click="handleClick">{{selfContent}}</div>',
+            methods: {
+                handleClick: function () {
+                    this.bus.$emit('change', this.selfContent)
+                }
+            },
+            mounted: function () {
+                this.bus.$on('change',  (msg)=> {
+                    // alert(msg)
+                    // 弹出俩次msg,,,因为派发出一个事件以后，所有组件都能够监听到change事件
+                    // 可以通过child1验证，会弹出3次
+
+                    //根组件只会弹出一次，因为根组件只会执行一次，所以data可以为一个对象，，，，而子组件的data须为一个函数
+                    this.selfContent = msg
+                })
+            }
+        })
+
+        // Vue.component('child1',{
+        //     props: ['content'],
+        //     template: '<div @click="handleClick">{{content}}</div>',
+        //     methods: {
+        //         handleClick: function () {
+        //             this.bus.$emit('change')
+        //         }
+        //     },
+        //     mounted: function () {
+        //         this.bus.$on('change',  (msg)=> {
+        //             alert(msg)
+        //         })
+        //     }
+        // })
+
+        var vm = new Vue({
+            el: '#root',
+            data: {
+
+            },
+            mounted: function () {
+                this.bus.$on('change',  (msg)=> {
+                    alert(msg)
+                })
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>
