@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue中的作用域插槽</title>
+    <script src="./vue.js"></script>
+</head>
+<!-- 作用域插槽使用场景 -->
+<!-- 当子组件的内容需要由外部传入的时候使用 -->
+
+一句话概括就是子组件可以向父组件的插槽传递数据，并且声明其通过props接收（本例子中）
+<body>
+    <div id="root">
+        <child>
+            <!-- 父组件向子组件传值的固定写法 -->
+            <template slot-scope="props">
+                <h1>{{props.item}}-hello</h1>
+            </template>
+        </child>
+        
+
+    </div>
+    <script>
+        Vue.component('child', {
+            template: `
+            <div>
+                <ul>
+                    <slot
+                    v-for="item of list"
+                    :item=item
+                    ></slot>
+                </ul>
+            </div>`,
+            data: function () {
+                return {
+                    list: [1, 2, 3, 4]
+                }
+            }
+        })
+
+        var vm = new Vue({
+            el: '#root',
+            data: {
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>
