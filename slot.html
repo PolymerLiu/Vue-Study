@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>插槽的使用方式</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 插槽是为了解决父子组件间传递DOM的问题 -->
+        <child>
+            <!-- 父组件不向子组件传递内容，可以在slot内部设置默认内容 -->
+            <h1>jeffrey</h1>
+        </child>
+        <test-header>
+            <!-- 可以插入多个slot,但是要指定每一个具体的slot -->
+            <div slot="header">header</div>
+            <div slot="footer">footer</div>
+        </test-header>
+    </div>
+    <script>
+        Vue.component('child', {
+            template: `<div>
+                        <p>hello</p>
+                        <slot>默认内容</slot>
+                      </div>`
+        })
+        Vue.component('test-header', {
+            template: `<div>
+                        <slot name='header'>默认内容</slot>
+                        <p>content</p>
+                        <slot name='footer'>默认内容</slot>
+                      </div>`
+        })
+        var vm = new Vue({
+            el: '#root',
+            data: {
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>
